@@ -1,6 +1,8 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
+import iconError from './img/error.svg';
+
 import getImagesByQuery from './js/pixabay-api';
 import {
   createGallery,
@@ -27,7 +29,7 @@ const errorMessage = {
   message:
     'Sorry, there are no images matching your search query. Please try again!',
   messageColor: '#ffffff',
-  iconUrl: './error.svg',
+  iconUrl: iconError,
   iconColor: '#ffffff',
   backgroundColor: '#B51B1B',
 };
@@ -37,7 +39,7 @@ const errorServerConnection = {
   titleColor: '#ffffff',
   message: 'Error connecting to server',
   messageColor: '#ffffff',
-  iconUrl: './img/error.svg',
+  iconUrl: iconError,
   iconColor: '#ffffff',
   backgroundColor: '#B51B1B',
 };
