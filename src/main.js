@@ -14,7 +14,7 @@ import {
 // document.querySelector('.span.loader').classList.remove('loader');
 
 const form = document.querySelector('.form');
-const gallery = document.querySelector('.gallery');
+// const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.btn.visually-hidden');
 
 let page = 1;
@@ -27,7 +27,7 @@ const errorMessage = {
   message:
     'Sorry, there are no images matching your search query. Please try again!',
   messageColor: '#ffffff',
-  iconUrl: './img/error.svg',
+  iconUrl: './error.svg',
   iconColor: '#ffffff',
   backgroundColor: '#B51B1B',
 };
@@ -110,7 +110,7 @@ async function onLoadMore() {
     if (page >= maxPages) {
       errorMessage.message =
         "We're sorry, but you've reached the end of search results.";
-
+      errorMessage.iconUrl = '/error.svg';
       iziToast.show(errorMessage);
       hideLoader();
       return;
