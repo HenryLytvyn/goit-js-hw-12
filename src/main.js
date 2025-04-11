@@ -2,7 +2,6 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 import iconError from './img/error.svg';
-
 import getImagesByQuery from './js/pixabay-api';
 import {
   createGallery,
@@ -13,17 +12,12 @@ import {
   hideLoadMoreButton,
 } from './js/render-functions';
 
-// document.querySelector('.span.loader').classList.remove('loader');
-
 const form = document.querySelector('.form');
-// const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.btn.visually-hidden');
 
 let page = 1;
 let query;
 let maxPages;
-
-loadMoreBtn.addEventListener('click', onLoadMore);
 
 const errorMessage = {
   message:
@@ -45,6 +39,7 @@ const errorServerConnection = {
 };
 
 form.addEventListener('submit', handleSubmit);
+loadMoreBtn.addEventListener('click', onLoadMore);
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -68,17 +63,14 @@ function handleSubmit(event) {
       const array = response.data.hits;
       maxPages = Math.ceil(response.data.totalHits / array.length);
 
-      console.log(response.data);
-
       if (!array.length) {
         noData();
         return;
       }
       hideLoader();
       createGallery(array);
-      // console.log(maxPages);
 
-      if (page <= maxPages) {
+      if (page < maxPages) {
         showLoadMoreButton();
       }
     })
@@ -101,7 +93,6 @@ async function onLoadMore() {
   hideLoadMoreButton();
   showLoader();
   page++;
-  console.log(page);
 
   try {
     const response = await getImagesByQuery(query, page);
@@ -109,17 +100,24 @@ async function onLoadMore() {
     createGallery(response.data.hits);
     hideLoader();
 
+    const card = document.querySelector('.gallery-item');
+    const cardHeight = card.getBoundingClientRect().height;
+
+    window.scrollBy({
+      left: 0,
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
+
     if (page >= maxPages) {
       errorMessage.message =
         "We're sorry, but you've reached the end of search results.";
-      errorMessage.iconUrl = '/error.svg';
       iziToast.show(errorMessage);
       hideLoader();
       return;
     }
 
     showLoadMoreButton();
-    console.log(response.data.hits);
   } catch (error) {
     alert(error.message);
     hideLoader();

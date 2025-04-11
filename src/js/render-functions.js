@@ -44,12 +44,13 @@ export function createGallery(images) {
 
   gallery.insertAdjacentHTML('beforeend', markUp);
 
-  const galleryLightBox = new SimpleLightbox('.gallery li a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
   galleryLightBox.refresh();
 }
+
+const galleryLightBox = new SimpleLightbox('.gallery li a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 export function clearGallery() {
   gallery.innerHTML = '';
