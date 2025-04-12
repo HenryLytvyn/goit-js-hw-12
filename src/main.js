@@ -12,6 +12,8 @@ import {
   hideLoadMoreButton,
 } from './js/render-functions';
 
+document.querySelector('.span').classList.remove('loader');
+
 const form = document.querySelector('.form');
 const loadMoreBtn = document.querySelector('.btn.visually-hidden');
 
